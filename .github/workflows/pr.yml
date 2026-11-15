@@ -7,7 +7,9 @@ on:
 jobs:
   build:
     runs-on: macos-26
+    timeout-minutes: 10
     strategy:
+      fail-fast: true
       matrix:
         java: [17, 25]
         scala: [2.13.18, 3.9.0]
@@ -23,6 +25,7 @@ jobs:
         run: cat /dev/null | project/sbt ++${{ matrix.scala }} clean testFull doc
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
       - name: Set up JDK 17
